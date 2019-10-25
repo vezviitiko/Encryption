@@ -1,18 +1,40 @@
 #include "Encryption.h"
 
-void xor_coding(String key, Vector<byte> *data){
+void xor_encryption(String key, Vector<byte> *data){
     for (size_t i = 0; i != data->GetCount(); i++){
+        data->At(i) ^= key[ i % key.GetCount() ];
+        //data->At(i) = Encode64(data->At(i));
+    }
+}
+
+void xor_dencryption(String key, Vector<byte> *data){
+	
+    for (size_t i = 0; i != data->GetCount(); i++){
+        //data->At(i) = Decode64(data->At(i));
         data->At(i) ^= key[ i % key.GetCount() ];
     }
 }
 
-String xor_coding(String key, String data){
+//---------------------------------------------------
+
+String xor_encryption(String key, String data){
 	String str;
+    for (size_t i = 0; i != data.GetCount(); i++){
+        str.Cat(data[i] ^ key[ i % key.GetCount() ]);
+    }
+    return Encode64(str);
+}
+
+String xor_dencryption(String key, String data){
+	String str;
+	data = Decode64(data);
     for (size_t i = 0; i != data.GetCount(); i++){
         str.Cat(data[i] ^ key[ i % key.GetCount() ]);
     }
     return str;
 }
+
+//---------------------------------------------------
 
 Vector<byte> StringTovectorbyte(String str){
 	Vector<byte> root;
