@@ -1,18 +1,21 @@
 #include "Encryption.h"
 
 void xor_encryption(String key, Vector<byte> *data){
-    for (size_t i = 0; i != data->GetCount(); i++){
-        data->At(i) ^= key[ i % key.GetCount() ];
-        //data->At(i) = Encode64(data->At(i));
-    }
+	std::string str(data->begin(),data->end());
+	str = xor_encryption(key,str);
+	data->Clear();
+	for (char a: str){
+		data->Add(a);
+	}
 }
 
 void xor_dencryption(String key, Vector<byte> *data){
-	
-    for (size_t i = 0; i != data->GetCount(); i++){
-        //data->At(i) = Decode64(data->At(i));
-        data->At(i) ^= key[ i % key.GetCount() ];
-    }
+	std::string str(data->begin(),data->end());
+	str = xor_dencryption(key,str);
+	data->Clear();
+	for (char a: str){
+		data->Add(a);
+	}
 }
 
 //---------------------------------------------------
@@ -33,6 +36,7 @@ String xor_dencryption(String key, String data){
     }
     return str;
 }
+
 
 //---------------------------------------------------
 
