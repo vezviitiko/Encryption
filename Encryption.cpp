@@ -35,7 +35,7 @@ void xor_encryption(String key, String *data){
 }
 
 void xor_dencryption(String key, String *data){
-	String str
+	String str;
 	*data = Decode64(*data);
 	const char *iter = data->begin();
 	int i = 0;
