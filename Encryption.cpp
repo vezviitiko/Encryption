@@ -2,41 +2,50 @@
 
 void xor_encryption(String key, Vector<byte> *data){
 	std::string str(data->begin(),data->end());
-	str = xor_encryption(key,str);
+	String uppStr = str.c_str();
+	xor_encryption(key, &uppStr);
 	data->Clear();
-	for (char a: str){
+	for (char a: uppStr){
 		data->Add(a);
 	}
 }
 
 void xor_dencryption(String key, Vector<byte> *data){
 	std::string str(data->begin(),data->end());
-	str = xor_dencryption(key,str);
+	String uppStr = str.c_str();
+	xor_dencryption(key, &uppStr);
 	data->Clear();
-	for (char a: str){
+	for (char a: uppStr){
 		data->Add(a);
 	}
 }
 
 //---------------------------------------------------
 
-String xor_encryption(String key, String data){
+void xor_encryption(String key, String *data){
 	String str;
-    for (size_t i = 0; i != data.GetCount(); i++){
-        str.Cat(data[i] ^ key[ i % key.GetCount() ]);
-    }
-    return Encode64(str);
+	const char *iter = data->begin();
+	int i = 0;
+	while(iter != data->end()){
+		str.Cat(*(iter) ^ key[ i % key.GetCount() ]);
+		i++;
+		iter++;
+	}
+    *data = (Encode64(str));
 }
 
-String xor_dencryption(String key, String data){
-	String str;
-	data = Decode64(data);
-    for (size_t i = 0; i != data.GetCount(); i++){
-        str.Cat(data[i] ^ key[ i % key.GetCount() ]);
-    }
-    return str;
+void xor_dencryption(String key, String *data){
+	String str
+	*data = Decode64(*data);
+	const char *iter = data->begin();
+	int i = 0;
+	while(iter != data->end()){
+		str.Cat(*(iter) ^ key[ i % key.GetCount() ]);
+		i++;
+		iter++;
+	}
+    *data = str;
 }
-
 
 //---------------------------------------------------
 
