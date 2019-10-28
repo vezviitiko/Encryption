@@ -5,8 +5,8 @@
 
 using namespace Upp;
 
-String xor_encryption(String key, String data);
-String xor_dencryption(String key, String data);
+void xor_encryption(String key, String *data);
+void xor_dencryption(String key, String *data);
 void xor_encryption(String key, Vector<byte> *data);
 void xor_dencryption(String key, Vector<byte> *data);
 
